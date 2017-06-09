@@ -18,10 +18,23 @@ html
           ul.nav.navbar-nav
             li.active
               a(href='/') Home
-            li
-              a(href='/articles/add') Add Article
-
+            if user
+              li
+                a(href='/articles/add') Add Article
+          ul.nav.navbar-nav.navbar-right
+            if user
+              li 
+                a(href="/users/logout") Logout
+            if !user
+              li
+                a(href="/users/register") Register
+              li
+                a(href="/users/login") Login
     .container
+      != messages("message", locals)
+      if errors
+        each error, i in errors
+          div(class="alert alert-danger") #{error.msg}
       block content
       br
       hr
